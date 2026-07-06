@@ -73,7 +73,7 @@
         bt_to_win: bt_to_win {
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
-            bindings = <&bt BT_SEL 1 &to 0>;
+            bindings = <&bt BT_SEL 1 &to 7>;
             label = "BT_TO_WIN";
         };
     };
@@ -95,9 +95,9 @@
         default_layer {
             bindings = <
 &kp Q             &kp W      &kp E         &kp R                   &kp T                                          &kp Y        &kp U  &lt 5 I    &kp O    &kp P
-&kp A             &kp S      &kp D         &kp F                   &kp G        &kp LS(LG(S))      &kp MINUS      &kp H        &kp J  &kp K      &kp L    &kp SQT
+&kp A             &kp S      &kp D         &kp F                   &kp G        &kp LS(LG(S))      &kp MINUS      &kp H        &kp J  &kp K      &kp L    &kp ENTER
 &mt LEFT_SHIFT Z  &kp X      &kp C         &kp V                   &kp B        &kp COLON          &kp SEMICOLON  &kp N        &kp M  &kp COMMA  &kp DOT  &mt RIGHT_SHIFT SLASH
-&kp LEFT_GUI      &kp LCTRL  &kp LEFT_ALT  &lt_to_layer_0 6 LANG2  &lt 2 SPACE  &lt 3 LANG2        &kp LANG1      &lt 1 ENTER                             &kp BACKSPACE
+&kp LEFT_GUI      &kp LCTRL  &kp LEFT_ALT  &lt_to_layer_0 6 LANG2  &lt 2 LANG2  &lt 3 SPACE        &kp BACKSPACE  &lt 1 LANG1                             &kp SINGLE_QUOTE
             >;
 
             sensor-bindings = <&inc_dec_kp PG_UP PAGE_DOWN>;
@@ -162,9 +162,9 @@
         default_windows {
             bindings = <
 &kp Q             &kp W         &kp E         &kp R                   &kp T                                          &kp Y        &kp U  &lt 5 I    &kp O    &kp P
-&kp A             &kp S         &kp D         &kp F                   &kp G        &kp LS(LG(S))      &kp MINUS      &kp H        &kp J  &kp K      &kp L    &kp SQT
+&kp A             &kp S         &kp D         &kp F                   &kp G        &kp LS(LG(S))      &kp MINUS      &kp H        &kp J  &kp K      &kp L    &kp ENTER
 &mt LEFT_SHIFT Z  &kp X         &kp C         &kp V                   &kp B        &kp COLON          &kp SEMICOLON  &kp N        &kp M  &kp COMMA  &kp DOT  &mt RIGHT_SHIFT SLASH
-&kp LCTRL         &kp LEFT_WIN  &kp LEFT_ALT  &lt_to_layer_0 6 LANG2  &lt 8 SPACE  &lt 3 LANG2        &kp LANG1      &lt 1 ENTER                             &kp BACKSPACE
+&kp LCTRL         &kp LEFT_WIN  &kp LEFT_ALT  &lt_to_layer_0 6 LANG2  &lt 8 LANG2  &lt 3 SPACE        &kp BACKSPACE  &lt 1 LANG1                             &kp SINGLE_QUOTE
             >;
 
             sensor-bindings = <&inc_dec_kp PG_UP PAGE_DOWN>;
