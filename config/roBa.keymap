@@ -1,13 +1,12 @@
+#include <behaviors/runtime-sensor-rotate.dtsi>
 #include <behaviors.dtsi>
 #include <dt-bindings/zmk/bt.h>
 #include <dt-bindings/zmk/keys.h>
 #include <dt-bindings/zmk/pointing.h>
-#include <behaviors/runtime-sensor-rotate.dtsi>
 
 #undef ZMK_POINTING_DEFAULT_SCRL_VAL
 
 #define ZMK_POINTING_DEFAULT_SCRL_VAL 80
-
 #define L_DEFAULT      0
 #define L_APPLE        1
 #define L_APPLE_TOUCH  2
@@ -104,6 +103,7 @@
 
         // BT profile -> base-layer routing. Key position fixed (H/J/K/L/SQT),
         // BT_SEL number fixed; only the &to base-layer differs (案B 2026-06-24).
+
         bt_h_win: bt_h_win {
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
@@ -188,7 +188,6 @@
             #sensor-binding-cells = <0>;
             cw-binding = <&kp C_VOLUME_DOWN>;
             ccw-binding = <&kp C_VOLUME_UP>;
-
             tap-ms = <20>;
         };
     };
@@ -217,10 +216,10 @@
 
         DEFAULT {
             bindings = <
-&kp Q               &kp W         &kp E         &kp R                        &kp T                                                            &kp Y        &kp U  &kp I               &kp O    &kp P
-&mt LEFT_CONTROL A  &kp S         &kp D         &kp F                        &kp G        &kp K_MUTE                           &kp MINUS      &kp H        &kp J  &kp K               &kp L    &kp SQT
-&mt LEFT_SHIFT Z    &kp X         &kp C         &kp V                        &kp B        &mo L_SETTING                        &kp SEMICOLON  &kp N        &kp M  &lt L_SCROLL COMMA  &kp DOT  &kp SLASH
-&kp LCTRL           &kp LEFT_WIN  &kp LEFT_ALT  &lt_to_layer_0 L_SETTING LANG2  &lt L_NUM SPACE  &lt_to_layer_0 L_ARROW LANG1      &kp BACKSPACE  &lt L_FUNCTION ENTER                               &kp DEL
+&kp Q               &kp W         &kp E         &kp R                           &kp T                                                             &kp Y                 &kp U  &kp I               &kp O    &kp P
+&mt LEFT_CONTROL A  &kp S         &kp D         &kp F                           &kp G            &kp K_MUTE                        &kp MINUS      &kp H                 &kp J  &kp K               &kp L    &kp SQT
+&mt LEFT_SHIFT Z    &kp X         &kp C         &kp V                           &kp B            &mo L_SETTING                     &kp SEMICOLON  &kp N                 &kp M  &lt L_SCROLL COMMA  &kp DOT  &kp SLASH
+&kp LCTRL           &kp LEFT_WIN  &kp LEFT_ALT  &lt_to_layer_0 L_SETTING LANG2  &lt L_NUM SPACE  &lt_to_layer_0 L_ARROW LANG1      &kp BACKSPACE  &lt L_FUNCTION ENTER                                      &kp DEL
             >;
 
             sensor-bindings = <&encoder_vol_down_up>;
@@ -228,10 +227,10 @@
 
         APPLE {
             bindings = <
-&kp Q             &kp W         &kp E         &kp R                                 &kp T                                                                     &kp Y        &kp U  &kp I               &kp O    &kp P
-&mt LEFT_GUI A    &kp S         &kp D         &kp F                                 &kp G        &kp K_MUTE                                    &kp MINUS      &kp H        &kp J  &kp K               &kp L    &kp SQT
-&mt LEFT_SHIFT Z  &kp X         &kp C         &kp V                                 &kp B        &mo L_SETTING                                 &kp SEMICOLON  &kp N        &kp M  &lt L_SCROLL COMMA  &kp DOT  &kp SLASH
-&kp LEFT_GUI      &kp LCTRL     &kp LEFT_ALT  &lt_to_apple_default L_SETTING LANG2  &lt L_NUM SPACE  &lt_to_apple_default L_ARROW LANG1      &kp BACKSPACE  &lt L_FUNCTION ENTER                               &kp DEL
+&kp Q             &kp W      &kp E         &kp R                                 &kp T                                                                   &kp Y                 &kp U  &kp I               &kp O    &kp P
+&mt LEFT_GUI A    &kp S      &kp D         &kp F                                 &kp G            &kp K_MUTE                              &kp MINUS      &kp H                 &kp J  &kp K               &kp L    &kp SQT
+&mt LEFT_SHIFT Z  &kp X      &kp C         &kp V                                 &kp B            &mo L_SETTING                           &kp SEMICOLON  &kp N                 &kp M  &lt L_SCROLL COMMA  &kp DOT  &kp SLASH
+&kp LEFT_GUI      &kp LCTRL  &kp LEFT_ALT  &lt_to_apple_default L_SETTING LANG2  &lt L_NUM SPACE  &lt_to_apple_default L_ARROW LANG1      &kp BACKSPACE  &lt L_FUNCTION ENTER                                      &kp DEL
             >;
 
             sensor-bindings = <&encoder_vol_down_up>;
@@ -239,10 +238,10 @@
 
         APPLE_TOUCH {
             bindings = <
-&kp Q             &kp W         &kp E         &kp R                       &kp T                                                               &kp Y        &kp U  &kp I               &kp O    &kp P
-&mt LEFT_GUI A    &kp S         &kp D         &kp F                       &kp G        &kp K_MUTE                              &kp MINUS      &kp H        &kp J  &kp K               &kp L    &kp SQT
-&mt LEFT_SHIFT Z  &kp X         &kp C         &kp V                       &kp B        &mo L_SETTING                           &kp SEMICOLON  &kp N        &kp M  &lt L_SCROLL COMMA  &kp DOT  &kp SLASH
-&kp LEFT_GUI      &kp LCTRL     &kp LEFT_ALT  &lt_to_apple_touch L_SETTING LANG2  &lt L_NUM SPACE  &lt_to_apple_touch L_ARROW LANG1      &kp BACKSPACE  &lt L_FUNCTION ENTER                               &kp DEL
+&kp Q             &kp W      &kp E         &kp R                               &kp T                                                                 &kp Y                 &kp U  &kp I               &kp O    &kp P
+&mt LEFT_GUI A    &kp S      &kp D         &kp F                               &kp G            &kp K_MUTE                            &kp MINUS      &kp H                 &kp J  &kp K               &kp L    &kp SQT
+&mt LEFT_SHIFT Z  &kp X      &kp C         &kp V                               &kp B            &mo L_SETTING                         &kp SEMICOLON  &kp N                 &kp M  &lt L_SCROLL COMMA  &kp DOT  &kp SLASH
+&kp LEFT_GUI      &kp LCTRL  &kp LEFT_ALT  &lt_to_apple_touch L_SETTING LANG2  &lt L_NUM SPACE  &lt_to_apple_touch L_ARROW LANG1      &kp BACKSPACE  &lt L_FUNCTION ENTER                                      &kp DEL
             >;
 
             sensor-bindings = <&encoder_vol_down_up>;
@@ -280,9 +279,9 @@
         MOUSE {
             bindings = <
 &trans  &trans  &trans  &trans  &trans                      &trans  &kp LC(LG(LEFT))  &kp LA(TAB)  &kp LC(LG(RIGHT))  &mt LC(LS(T)) LC(W)
-&trans  &trans  &trans  &trans  &trans  &trans      &trans  &trans  &mkp MB1          &mkp MB3   &mkp MB2           &trans
-&trans  &trans  &trans  &trans  &trans  &trans      &trans  &trans  &mkp MB4          &trans     &mkp MB5           &trans
-&trans  &trans  &trans  &trans  &trans  &trans      &trans  &trans                                                  &trans
+&trans  &trans  &trans  &trans  &trans  &trans      &trans  &trans  &trans            &mkp MB4     &trans             &mkp MB5
+&trans  &trans  &trans  &trans  &trans  &trans      &trans  &trans  &trans            &mkp MB1     &mkp MB3           &mkp MB2
+&trans  &trans  &trans  &trans  &trans  &trans      &trans  &trans                                                    &trans
             >;
         };
 
@@ -297,19 +296,19 @@
 
         SETTING {
             bindings = <
-&bt BT_CLR  &trans  &trans  &trans  &trans                      &trans          &trans        &trans        &trans      &studio_unlock
-&trans      &trans  &trans  &trans  &trans  &trans      &trans  &bt_h_win      &bt_j_mac     &bt_k_win     &bt_l_ipad  &bt_sqt_iphone
-&rt_macro 0  &trans  &trans  &trans  &trans  &trans      &trans  &trans         &trans        &trans        &trans      &trans
-&trans      &trans  &trans  &trans  &trans  &trans      &trans  &trans                                                 &trans
+&bt BT_CLR   &trans  &trans  &trans  &trans                      &trans     &trans     &trans     &trans      &studio_unlock
+&trans       &trans  &trans  &trans  &trans  &trans      &trans  &bt_h_win  &bt_j_mac  &bt_k_win  &bt_l_ipad  &bt_sqt_iphone
+&rt_macro 0  &trans  &trans  &trans  &trans  &trans      &trans  &trans     &trans     &trans     &trans      &trans
+&trans       &trans  &trans  &trans  &trans  &trans      &trans  &trans                                       &trans
             >;
         };
 
         APPLE_MOUSE {
             bindings = <
 &trans  &trans  &trans  &trans  &trans                      &trans  &kp LC(LEFT)  &kp LG(TAB)  &kp LC(RIGHT)  &mt LG(LS(T)) LG(W)
-&trans  &trans  &trans  &trans  &trans  &trans      &trans  &trans  &trans        &trans  &trans         &trans
-&trans  &trans  &trans  &trans  &trans  &trans      &trans  &trans  &trans        &trans  &trans         &trans
-&trans  &trans  &trans  &trans  &trans  &trans      &trans  &trans                                      &trans
+&trans  &trans  &trans  &trans  &trans  &trans      &trans  &trans  &trans        &trans       &trans         &trans
+&trans  &trans  &trans  &trans  &trans  &trans      &trans  &trans  &trans        &trans       &trans         &trans
+&trans  &trans  &trans  &trans  &trans  &trans      &trans  &trans                                            &trans
             >;
         };
 
@@ -325,11 +324,10 @@
         TOUCH_MOUSE {
             bindings = <
 &trans  &trans  &trans  &trans  &trans                      &trans  &rt_macro 1  &kp LG(TAB)  &rt_macro 2  &mt LG(LS(T)) LG(W)
-&trans  &trans  &trans  &trans  &trans  &trans      &trans  &trans  &trans       &trans       &trans      &trans
-&trans  &trans  &trans  &trans  &trans  &trans      &trans  &trans  &trans       &trans       &trans      &trans
-&trans  &trans  &trans  &trans  &trans  &trans      &trans  &trans                                       &trans
+&trans  &trans  &trans  &trans  &trans  &trans      &trans  &trans  &trans       &trans       &trans       &trans
+&trans  &trans  &trans  &trans  &trans  &trans      &trans  &trans  &trans       &trans       &trans       &trans
+&trans  &trans  &trans  &trans  &trans  &trans      &trans  &trans                                         &trans
             >;
         };
-
     };
 };
