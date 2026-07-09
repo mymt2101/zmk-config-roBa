@@ -1,16 +1,43 @@
 manifest:
   remotes:
-    - name: zmkfirmware
-      url-base: https://github.com/zmkfirmware
+    - name: cormoran
+      url-base: https://github.com/cormoran
     - name: kumamuk-git
       url-base: https://github.com/kumamuk-git
+    - name: qtrnmr-gh
+      url-base: https://github.com/qtrnmr
   projects:
     - name: zmk
-      remote: zmkfirmware
-      revision: v0.3-branch
+      remote: cormoran
+      revision: v0.3-branch+dya
       import: app/west.yml
     - name: zmk-pmw3610-driver
       remote: kumamuk-git
       revision: main
+    - name: zmk-module-ble-management
+      remote: cormoran
+      revision: main
+    - name: zmk-module-battery-history
+      remote: cormoran
+      revision: main
+    - name: zmk-module-settings-rpc
+      remote: cormoran
+      revision: main
+    - name: zmk-module-runtime-input-processor
+      remote: cormoran
+      # Pin to the last pre-"Migrate to zmk v4" release: tag zmk-v0.3.0.0 keeps
+      # the full cormoran_rip RPC surface but uses the 1-arg
+      # zmk_keymap_layer_activate/deactivate that this v0.3-branch+dya base
+      # provides. Module `main` migrated to zmk v4 (2-arg) and won't build here.
+      revision: zmk-v0.3.0.0
+    - name: zmk-module-runtime-config
+      remote: qtrnmr-gh
+      revision: main
+    - name: zmk-behavior-runtime-sensor-rotate
+      remote: cormoran
+      # Same compat tag as runtime-input-processor: zmk-v0.3.0.0 is the last
+      # pre-"Migrate to zmk v4" release and keeps the full custom-RPC surface
+      # against this v0.3-branch+dya base. Module `main` won't build here.
+      revision: zmk-v0.3.0.0
   self:
     path: config
