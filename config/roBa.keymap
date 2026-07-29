@@ -356,12 +356,12 @@
             >;
         };
 
-        SCROLL {
+        MOUSE {
             bindings = <
-&trans  &trans  &trans  &trans  &trans                      &trans  &trans  &trans  &trans  &trans
-&trans  &trans  &trans  &trans  &trans  &trans      &trans  &trans  &trans  &trans  &trans  &trans
-&trans  &trans  &trans  &trans  &trans  &trans      &trans  &trans  &trans  &trans  &trans  &trans
-&trans  &trans  &trans  &trans  &trans  &trans      &trans  &trans                          &trans
+&trans  &trans  &trans  &trans  &trans                      &trans  &kp LC(LG(LEFT))  &kp LA(TAB)  &kp LC(LG(RIGHT))  &mt LC(LS(T)) LC(W)
+&trans  &trans  &trans  &trans  &trans  &trans      &trans  &trans  &mkp MB5          &mkp MB3     &mkp MB2           &trans
+&trans  &trans  &trans  &trans  &trans  &trans      &trans  &trans  &mkp MB4          &mkp MB1     &mo 8              &trans
+&trans  &trans  &trans  &trans  &trans  &trans      &trans  &trans                                                    &trans
             >;
         };
 
