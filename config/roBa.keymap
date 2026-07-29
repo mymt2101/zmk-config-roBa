@@ -30,7 +30,7 @@
 
 &trackball {
     // 変更点3: トラックボール誤タップ対策のため automouse-layer は廃止。
-    // MOUSEレイヤーは各ベースレイヤーのDELキーをホールドして手動発動する。
+    // MOUSEレイヤーは SQTキーのホールドで手動発動する(下記各ベースレイヤー参照)。
 
     scroll-layers = <L_SCROLL>;
 
@@ -288,7 +288,7 @@
         DEFAULT {
             bindings = <
 &kp Q             &kp W         &kp E         &kp R                           &kp T                                                                 &kp Y                 &kp U  &kp I      &kp O    &kp P
-&kp A             &kp S         &kp D         &kp F                           &kp G                &kp K_MUTE                        &kp MINUS      &kp H                 &kp J  &kp K      &kp L    &lt 7 SQT
+&kp A             &kp S         &kp D         &kp F                           &kp G                &kp K_MUTE                        &kp MINUS      &kp H                 &kp J  &kp K      &kp L    &lt L_MOUSE SQT
 &mt LEFT_SHIFT Z  &kp X         &kp C         &kp V                           &kp B                &mo L_SETTING                     &kp SEMICOLON  &kp N                 &kp M  &kp COMMA  &kp DOT  &mt RIGHT_SHIFT SLASH
 &kp LCTRL         &kp LEFT_WIN  &kp LEFT_ALT  &lt_to_layer_0 L_SETTING LANG2  &lt L_NUM_WIN SPACE  &lt_to_layer_0 L_ARROW LANG1      &kp BACKSPACE  &lt L_FUNCTION ENTER                             &kp DELETE
             >;
@@ -299,7 +299,7 @@
         APPLE {
             bindings = <
 &kp Q             &kp W      &kp E         &kp R                                 &kp T                                                                   &kp Y                 &kp U  &kp I      &kp O    &kp P
-&kp A             &kp S      &kp D         &kp F                                 &kp G            &kp K_MUTE                              &kp MINUS      &kp H                 &kp J  &kp K      &kp L    &lt 7 SQT
+&kp A             &kp S      &kp D         &kp F                                 &kp G            &kp K_MUTE                              &kp MINUS      &kp H                 &kp J  &kp K      &kp L    &lt L_MOUSE SQT
 &mt LEFT_SHIFT Z  &kp X      &kp C         &kp V                                 &kp B            &mo L_SETTING                           &kp SEMICOLON  &kp N                 &kp M  &kp COMMA  &kp DOT  &mt RIGHT_SHIFT SLASH
 &kp LEFT_GUI      &kp LCTRL  &kp LEFT_ALT  &lt_to_apple_default L_SETTING LANG2  &lt L_NUM SPACE  &lt_to_apple_default L_ARROW LANG1      &kp BACKSPACE  &lt L_FUNCTION ENTER                             &kp DELETE
             >;
@@ -310,7 +310,7 @@
         APPLE_TOUCH {
             bindings = <
 &kp Q             &kp W      &kp E         &kp R                               &kp T                                                                 &kp Y                 &kp U  &kp I      &kp O    &kp P
-&kp A             &kp S      &kp D         &kp F                               &kp G            &kp K_MUTE                            &kp MINUS      &kp H                 &kp J  &kp K      &kp L    &lt 7 SQT
+&kp A             &kp S      &kp D         &kp F                               &kp G            &kp K_MUTE                            &kp MINUS      &kp H                 &kp J  &kp K      &kp L    &lt L_MOUSE SQT
 &mt LEFT_SHIFT Z  &kp X      &kp C         &kp V                               &kp B            &mo L_SETTING                         &kp SEMICOLON  &kp N                 &kp M  &kp COMMA  &kp DOT  &mt RIGHT_SHIFT SLASH
 &kp LEFT_GUI      &kp LCTRL  &kp LEFT_ALT  &lt_to_apple_touch L_SETTING LANG2  &lt L_NUM SPACE  &lt_to_apple_touch L_ARROW LANG1      &kp BACKSPACE  &lt L_FUNCTION ENTER                             &kp DELETE
             >;
@@ -333,22 +333,6 @@
 &kp SLASH                   &kp KP_NUMBER_4  &kp KP_NUMBER_5  &kp KP_NUMBER_6  &kp ASTERISK  &kp LC(LA(KP_NUMBER_0))      &kp UNDERSCORE  &kp EXCLAMATION   &kp AT_SIGN        &kp HASH        &kp DOLLAR            &kp PERCENT
 &mt LEFT_SHIFT KP_NUMBER_0  &kp KP_NUMBER_1  &kp KP_NUMBER_2  &kp KP_NUMBER_3  &kp PERIOD    &kp EQUAL                    &trans          &kp LEFT_BRACKET  &kp RIGHT_BRACKET  &kp LEFT_BRACE  &kp RIGHT_BRACE       &kp BACKSLASH
 &trans                      &trans           &trans           &trans           &trans        &trans                       &trans          &trans                                                                     &kp PIPE
-            >;
-        };
-
-        // 変更点4: Windows直結時(JIS誤認識状態)でも記号が正しく出るよう
-        // キーコードを補正したNUMレイヤー。DEFAULT(Win)レイヤーのSPACEのみ
-        // ここを参照する(APPLE/APPLE_TOUCHは通常のNUMのまま)。
-        // 数字・ピリオド・カンマ等、JISとUSで差が出ない部分はNUMと共通。
-        // _ \ | の3つはUSキーコードの組み合わせでは物理的に作れないため、
-        // Alt+テンキーコードによるUnicode直接入力マクロで代替している。
-
-        NUM_WIN {
-            bindings = <
-&kp MINUS                   &kp KP_NUMBER_7  &kp KP_NUMBER_8  &kp KP_NUMBER_9  &kp PLUS                                                   &kp EQUAL        &kp LS(NUMBER_6)  &kp LS(NUMBER_0)  &kp LS(NUMBER_8)  &kp LS(NUMBER_9)
-&kp SLASH                   &kp KP_NUMBER_4  &kp KP_NUMBER_5  &kp KP_NUMBER_6  &kp LS(SQT)  &kp LC(LA(KP_NUMBER_0))      &alt_underscore  &kp EXCLAMATION  &kp LBKT          &kp HASH          &kp DOLLAR        &kp PERCENT
-&mt LEFT_SHIFT KP_NUMBER_0  &kp KP_NUMBER_1  &kp KP_NUMBER_2  &kp KP_NUMBER_3  &kp PERIOD   &kp LS(MINUS)                &trans           &kp RBKT         &kp BSLH          &kp LS(RBKT)      &kp LS(BSLH)      &alt_backslash
-&trans                      &trans           &trans           &trans           &trans       &trans                       &trans           &trans                                                                 &alt_pipe
             >;
         };
 
@@ -414,6 +398,25 @@
 &trans  &trans  &trans  &trans  &trans  &trans      &trans  &trans  &trans       &trans       &trans       &trans
 &trans  &trans  &trans  &trans  &trans  &trans      &trans  &trans  &trans       &trans       &trans       &trans
 &trans  &trans  &trans  &trans  &trans  &trans      &trans  &trans                                         &trans
+            >;
+        };
+
+        // 変更点4: Windows直結時(JIS誤認識状態)でも記号が正しく出るよう
+        // キーコードを補正したNUMレイヤー。DEFAULT(Win)レイヤーのSPACEのみ
+        // ここを参照する(APPLE/APPLE_TOUCHは通常のNUMのまま)。
+        // 数字・ピリオド・カンマ等、JISとUSで差が出ない部分はNUMと共通。
+        // _ \ | の3つはUSキーコードの組み合わせでは物理的に作れないため、
+        // Alt+テンキーコードによるUnicode直接入力マクロで代替している。
+        // ファイル末尾に配置しているのは、途中に挿入するとそれ以降の
+        // レイヤーの実インデックスがズレるため(ZMKはkeymap内の記述順で
+        // レイヤー番号が決まる。#defineの数値順ではない)。
+
+        NUM_WIN {
+            bindings = <
+&kp MINUS                   &kp KP_NUMBER_7  &kp KP_NUMBER_8  &kp KP_NUMBER_9  &kp PLUS                                                   &kp EQUAL        &kp LS(NUMBER_6)  &kp LS(NUMBER_0)  &kp LS(NUMBER_8)  &kp LS(NUMBER_9)
+&kp SLASH                   &kp KP_NUMBER_4  &kp KP_NUMBER_5  &kp KP_NUMBER_6  &kp LS(SQT)  &kp LC(LA(KP_NUMBER_0))      &alt_underscore  &kp EXCLAMATION  &kp LBKT          &kp HASH          &kp DOLLAR        &kp PERCENT
+&mt LEFT_SHIFT KP_NUMBER_0  &kp KP_NUMBER_1  &kp KP_NUMBER_2  &kp KP_NUMBER_3  &kp PERIOD   &kp LS(MINUS)                &trans           &kp RBKT         &kp BSLH          &kp LS(RBKT)      &kp LS(BSLH)      &alt_backslash
+&trans                      &trans           &trans           &trans           &trans       &trans                       &trans           &trans                                                                 &alt_pipe
             >;
         };
     };
