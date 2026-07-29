@@ -20,14 +20,17 @@
 #define L_APPLEMOUSE   9
 #define L_TOUCH_ARROW  10
 #define L_TOUCH_MOUSE  11
+#define L_NUM_WIN      12
 
 &mt {
-    flavor = "balanced";
+    // 変更点1: 高速タイピング時のCtrl/Shift誤爆対策。balanced→tap-preferred
+    flavor = "tap-preferred";
     quick-tap-ms = <0>;
 };
 
 &trackball {
-    automouse-layer = <L_MOUSE>;
+    // 変更点3: トラックボール誤タップ対策のため automouse-layer は廃止。
+    // MOUSEレイヤーは各ベースレイヤーのDELキーをホールドして手動発動する。
     scroll-layers = <L_SCROLL>;
 
     // arrows {
@@ -138,6 +141,53 @@
             bindings = <&bt BT_SEL 3 &to L_APPLE_TOUCH>;
             label = "BT_SQT_IPHONE";
         };
+
+        // 変更点4: _ \ | はUSキーコードの組み合わせではJIS誤認識状態で
+        // 物理的に作れない(JIS配列側にしかない専用キーが必要なため)。
+        // Windowsの「Alt+テンキーコード」Unicode直接入力機能で代替する。
+        // 注意: ホストPCのNumLockがON、かつAltキーの押下/解放が正しく
+        // 届く経路であることが前提(多段リモートデスクトップだと不安定な場合あり)。
+        alt_underscore: alt_underscore {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings
+                = <&macro_press &kp LALT>
+                , <&macro_tap &kp KP_NUMBER_0>
+                , <&macro_tap &kp KP_NUMBER_0>
+                , <&macro_tap &kp KP_NUMBER_9>
+                , <&macro_tap &kp KP_NUMBER_5>
+                , <&macro_release &kp LALT>
+                ;
+            label = "ALT_UNDERSCORE_WIN";
+        };
+
+        alt_backslash: alt_backslash {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings
+                = <&macro_press &kp LALT>
+                , <&macro_tap &kp KP_NUMBER_0>
+                , <&macro_tap &kp KP_NUMBER_0>
+                , <&macro_tap &kp KP_NUMBER_9>
+                , <&macro_tap &kp KP_NUMBER_2>
+                , <&macro_release &kp LALT>
+                ;
+            label = "ALT_BACKSLASH_WIN";
+        };
+
+        alt_pipe: alt_pipe {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings
+                = <&macro_press &kp LALT>
+                , <&macro_tap &kp KP_NUMBER_0>
+                , <&macro_tap &kp KP_NUMBER_1>
+                , <&macro_tap &kp KP_NUMBER_2>
+                , <&macro_tap &kp KP_NUMBER_4>
+                , <&macro_release &kp LALT>
+                ;
+            label = "ALT_PIPE_WIN";
+        };
     };
 
     behaviors {
@@ -220,7 +270,11 @@
 &kp Q               &kp W         &kp E         &kp R                        &kp T                                                            &kp Y        &kp U  &kp I               &kp O    &kp P
 &mt LEFT_CONTROL A  &kp S         &kp D         &kp F                        &kp G        &kp K_MUTE                           &kp MINUS      &kp H        &kp J  &kp K               &kp L    &kp SQT
 &mt LEFT_SHIFT Z    &kp X         &kp C         &kp V                        &kp B        &mo L_SETTING                        &kp SEMICOLON  &kp N        &kp M  &lt L_SCROLL COMMA  &kp DOT  &kp SLASH
-&kp LCTRL           &kp LEFT_WIN  &kp LEFT_ALT  &lt_to_layer_0 L_SETTING LANG2  &lt L_NUM SPACE  &lt_to_layer_0 L_ARROW LANG1      &kp BACKSPACE  &lt L_FUNCTION ENTER                               &kp DEL
+// 変更点4: DEFAULT(Win)のSPACEだけ、記号がJIS誤認識で崩れないよう補正した
+// L_NUM_WIN を参照する(APPLE/APPLE_TOUCHは従来通りL_NUM)
+// 変更点3: DELキーをホールドでMOUSEレイヤーに変更。
+// タップ側の機能は未定のため仮でF24(実質何も起きない)を割り当て中。
+&kp LCTRL           &kp LEFT_WIN  &kp LEFT_ALT  &lt_to_layer_0 L_SETTING LANG2  &lt L_NUM_WIN SPACE  &lt_to_layer_0 L_ARROW LANG1      &kp BACKSPACE  &lt L_FUNCTION ENTER                               &lt L_MOUSE F24
             >;
 
             sensor-bindings = <&encoder_vol_down_up>;
@@ -231,7 +285,7 @@
 &kp Q             &kp W         &kp E         &kp R                                 &kp T                                                                     &kp Y        &kp U  &kp I               &kp O    &kp P
 &mt LEFT_GUI A    &kp S         &kp D         &kp F                                 &kp G        &kp K_MUTE                                    &kp MINUS      &kp H        &kp J  &kp K               &kp L    &kp SQT
 &mt LEFT_SHIFT Z  &kp X         &kp C         &kp V                                 &kp B        &mo L_SETTING                                 &kp SEMICOLON  &kp N        &kp M  &lt L_SCROLL COMMA  &kp DOT  &kp SLASH
-&kp LEFT_GUI      &kp LCTRL     &kp LEFT_ALT  &lt_to_apple_default L_SETTING LANG2  &lt L_NUM SPACE  &lt_to_apple_default L_ARROW LANG1      &kp BACKSPACE  &lt L_FUNCTION ENTER                               &kp DEL
+&kp LEFT_GUI      &kp LCTRL     &kp LEFT_ALT  &lt_to_apple_default L_SETTING LANG2  &lt L_NUM SPACE  &lt_to_apple_default L_ARROW LANG1      &kp BACKSPACE  &lt L_FUNCTION ENTER                               &lt L_MOUSE F24
             >;
 
             sensor-bindings = <&encoder_vol_down_up>;
@@ -242,7 +296,7 @@
 &kp Q             &kp W         &kp E         &kp R                       &kp T                                                               &kp Y        &kp U  &kp I               &kp O    &kp P
 &mt LEFT_GUI A    &kp S         &kp D         &kp F                       &kp G        &kp K_MUTE                              &kp MINUS      &kp H        &kp J  &kp K               &kp L    &kp SQT
 &mt LEFT_SHIFT Z  &kp X         &kp C         &kp V                       &kp B        &mo L_SETTING                           &kp SEMICOLON  &kp N        &kp M  &lt L_SCROLL COMMA  &kp DOT  &kp SLASH
-&kp LEFT_GUI      &kp LCTRL     &kp LEFT_ALT  &lt_to_apple_touch L_SETTING LANG2  &lt L_NUM SPACE  &lt_to_apple_touch L_ARROW LANG1      &kp BACKSPACE  &lt L_FUNCTION ENTER                               &kp DEL
+&kp LEFT_GUI      &kp LCTRL     &kp LEFT_ALT  &lt_to_apple_touch L_SETTING LANG2  &lt L_NUM SPACE  &lt_to_apple_touch L_ARROW LANG1      &kp BACKSPACE  &lt L_FUNCTION ENTER                               &lt L_MOUSE F24
             >;
 
             sensor-bindings = <&encoder_vol_down_up>;
@@ -263,6 +317,21 @@
 &kp SLASH                   &kp KP_NUMBER_4  &kp KP_NUMBER_5  &kp KP_NUMBER_6  &kp ASTERISK  &kp LC(LA(KP_NUMBER_0))      &kp UNDERSCORE  &kp EXCLAMATION   &kp AT_SIGN        &kp HASH        &kp DOLLAR            &kp PERCENT
 &mt LEFT_SHIFT KP_NUMBER_0  &kp KP_NUMBER_1  &kp KP_NUMBER_2  &kp KP_NUMBER_3  &kp PERIOD    &kp EQUAL                    &trans          &kp LEFT_BRACKET  &kp RIGHT_BRACKET  &kp LEFT_BRACE  &kp RIGHT_BRACE       &kp BACKSLASH
 &trans                      &trans           &trans           &trans           &trans        &trans                       &trans          &trans                                                                     &kp PIPE
+            >;
+        };
+
+        // 変更点4: Windows直結時(JIS誤認識状態)でも記号が正しく出るよう
+        // キーコードを補正したNUMレイヤー。DEFAULT(Win)レイヤーのSPACEのみ
+        // ここを参照する(APPLE/APPLE_TOUCHは通常のNUMのまま)。
+        // 数字・ピリオド・カンマ等、JISとUSで差が出ない部分はNUMと共通。
+        // _ \ | の3つはUSキーコードの組み合わせでは物理的に作れないため、
+        // Alt+テンキーコードによるUnicode直接入力マクロで代替している。
+        NUM_WIN {
+            bindings = <
+&kp MINUS                   &kp KP_NUMBER_7  &kp KP_NUMBER_8  &kp KP_NUMBER_9  &kp PLUS                                                   &kp EQUAL         &kp LS(NUMBER_6)   &kp LS(NUMBER_0)  &kp LS(NUMBER_8)      &kp LS(NUMBER_9)
+&kp SLASH                   &kp KP_NUMBER_4  &kp KP_NUMBER_5  &kp KP_NUMBER_6  &kp LS(SQT)   &kp LC(LA(KP_NUMBER_0))      &alt_underscore &kp EXCLAMATION   &kp LBKT           &kp HASH        &kp DOLLAR            &kp PERCENT
+&mt LEFT_SHIFT KP_NUMBER_0  &kp KP_NUMBER_1  &kp KP_NUMBER_2  &kp KP_NUMBER_3  &kp PERIOD    &kp LS(MINUS)                &trans          &kp RBKT          &kp BSLH           &kp LS(RBKT)    &kp LS(BSLH)          &alt_backslash
+&trans                      &trans           &trans           &trans           &trans        &trans                       &trans          &trans                                                                     &alt_pipe
             >;
         };
 
@@ -299,7 +368,8 @@
             bindings = <
 &bt BT_CLR  &trans  &trans  &trans  &trans                      &trans          &trans        &trans        &trans      &studio_unlock
 &trans      &trans  &trans  &trans  &trans  &trans      &trans  &bt_h_win      &bt_j_mac     &bt_k_win     &bt_l_ipad  &bt_sqt_iphone
-&rt_macro 0  &trans  &trans  &trans  &trans  &trans      &trans  &trans         &trans        &trans        &trans      &trans
+// 変更点2: BTに触れず現在のBTプロファイルのままレイヤーだけ切り替える(N/M/,)
+&rt_macro 0  &trans  &trans  &trans  &trans  &trans      &trans  &to L_DEFAULT  &to L_APPLE   &to L_APPLE_TOUCH  &trans  &trans
 &trans      &trans  &trans  &trans  &trans  &trans      &trans  &trans                                                 &trans
             >;
         };
