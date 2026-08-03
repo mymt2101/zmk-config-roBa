@@ -9,17 +9,14 @@
 #define ZMK_POINTING_DEFAULT_SCRL_VAL 80
 #define L_DEFAULT      0
 #define L_APPLE        1
-#define L_APPLE_TOUCH  2
-#define L_FUNCTION     3
-#define L_NUM          4
-#define L_ARROW        5
-#define L_MOUSE        6
-#define L_SCROLL       7
-#define L_SETTING      8
-#define L_APPLEMOUSE   9
-#define L_TOUCH_ARROW  10
-#define L_TOUCH_MOUSE  11
-#define L_NUM_WIN      12
+#define L_FUNCTION     2
+#define L_NUM          3
+#define L_ARROW        4
+#define L_MOUSE        5
+#define L_SCROLL       6
+#define L_SETTING      7
+#define L_APPLEMOUSE   8
+#define L_NUM_WIN      9
 
 &mt {
     // 変更点1: 高速タイピング時のCtrl/Shift誤爆対策。balanced→tap-preferred
@@ -80,7 +77,7 @@
         redo_apple {
             bindings = <&kp LG(LS(Z))>;
             key-positions = <22 23 24>;
-            layers = <L_APPLE L_APPLEMOUSE L_APPLE_TOUCH L_TOUCH_MOUSE>;
+            layers = <L_APPLE L_APPLEMOUSE>;
         };
     };
 
@@ -97,13 +94,6 @@
             #binding-cells = <1>;
             bindings = <&to L_APPLE &macro_param_1to1 &kp MACRO_PLACEHOLDER>;
             label = "TO_APPLE_DEFAULT";
-        };
-
-        to_apple_touch: to_apple_touch {
-            compatible = "zmk,behavior-macro-one-param";
-            #binding-cells = <1>;
-            bindings = <&to L_APPLE_TOUCH &macro_param_1to1 &kp MACRO_PLACEHOLDER>;
-            label = "TO_APPLE_TOUCH";
         };
 
         // BT profile -> base-layer routing. Key position fixed (H/J/K/L/SQT),
@@ -133,14 +123,14 @@
         bt_l_ipad: bt_l_ipad {
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
-            bindings = <&bt BT_SEL 2 &to L_APPLE_TOUCH>;
+            bindings = <&bt BT_SEL 2 &to L_APPLE>;
             label = "BT_L_IPAD";
         };
 
         bt_sqt_iphone: bt_sqt_iphone {
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
-            bindings = <&bt BT_SEL 3 &to L_APPLE_TOUCH>;
+            bindings = <&bt BT_SEL 3 &to L_APPLE>;
             label = "BT_SQT_IPHONE";
         };
 
@@ -235,15 +225,6 @@
             tapping-term-ms = <200>;
         };
 
-        lt_to_apple_touch: lt_to_apple_touch {
-            compatible = "zmk,behavior-runtime-hold-tap";
-            label = "LAYER_TAP_TO_APPLE_TOUCH";
-            bindings = <&mo>, <&to_apple_touch>;
-
-            #binding-cells = <2>;
-            tapping-term-ms = <200>;
-        };
-
         encoder_msc_down_up: encoder_msc_down_up {
             compatible = "zmk,behavior-sensor-rotate";
             label = "ENCODER_MSC_DOWN_UP";
@@ -270,16 +251,6 @@
             if-layers = <L_APPLE L_MOUSE>;
             then-layer = <L_APPLEMOUSE>;
         };
-
-        touch_mouse {
-            if-layers = <L_APPLE_TOUCH L_MOUSE>;
-            then-layer = <L_TOUCH_MOUSE>;
-        };
-
-        touch_arrow {
-            if-layers = <L_APPLE_TOUCH L_ARROW>;
-            then-layer = <L_TOUCH_ARROW>;
-        };
     };
 
     keymap {
@@ -302,17 +273,6 @@
 &kp A             &kp S      &kp D         &kp F                                 &kp G            &kp K_MUTE                              &kp MINUS      &kp H                 &kp J  &kp K      &kp L    &lt L_MOUSE SQT
 &mt LEFT_SHIFT Z  &kp X      &kp C         &kp V                                 &kp B            &mo L_SETTING                           &kp SEMICOLON  &kp N                 &kp M  &kp COMMA  &kp DOT  &mt RIGHT_SHIFT SLASH
 &kp LEFT_GUI      &kp LCTRL  &kp LEFT_ALT  &lt_to_apple_default L_SETTING LANG2  &lt L_NUM SPACE  &lt_to_apple_default L_ARROW LANG1      &kp BACKSPACE  &lt L_FUNCTION ENTER                             &kp DELETE
-            >;
-
-            sensor-bindings = <&encoder_vol_down_up>;
-        };
-
-        APPLE_TOUCH {
-            bindings = <
-&kp Q             &kp W      &kp E         &kp R                               &kp T                                                                 &kp Y                 &kp U  &kp I      &kp O    &kp P
-&kp A             &kp S      &kp D         &kp F                               &kp G            &kp K_MUTE                            &kp MINUS      &kp H                 &kp J  &kp K      &kp L    &lt L_MOUSE SQT
-&mt LEFT_SHIFT Z  &kp X      &kp C         &kp V                               &kp B            &mo L_SETTING                         &kp SEMICOLON  &kp N                 &kp M  &kp COMMA  &kp DOT  &mt RIGHT_SHIFT SLASH
-&kp LEFT_GUI      &kp LCTRL  &kp LEFT_ALT  &lt_to_apple_touch L_SETTING LANG2  &lt L_NUM SPACE  &lt_to_apple_touch L_ARROW LANG1      &kp BACKSPACE  &lt L_FUNCTION ENTER                             &kp DELETE
             >;
 
             sensor-bindings = <&encoder_vol_down_up>;
@@ -369,7 +329,7 @@
             bindings = <
 &bt BT_CLR   &trans  &trans  &trans  &trans                      &trans         &trans       &trans             &trans      &studio_unlock
 &trans       &trans  &trans  &trans  &trans  &trans      &trans  &bt_h_win      &bt_j_mac    &bt_k_win          &bt_l_ipad  &bt_sqt_iphone
-&rt_macro 0  &trans  &trans  &trans  &trans  &trans      &trans  &to L_DEFAULT  &to L_APPLE  &to L_APPLE_TOUCH  &trans      &trans
+&rt_macro 0  &trans  &trans  &trans  &trans  &trans      &trans  &to L_DEFAULT  &to L_APPLE  &trans             &trans      &trans
 &trans       &trans  &trans  &trans  &trans  &trans      &trans  &trans                                                     &trans
             >;
         };
@@ -383,27 +343,9 @@
             >;
         };
 
-        TOUCH_ARROW {
-            bindings = <
-&trans  &trans  &trans  &trans  &trans                      &trans  &trans       &kp LG(H)      &trans          &trans
-&trans  &trans  &trans  &trans  &trans  &trans      &trans  &trans  &kp LG(TAB)  &kp LG(SPACE)  &kp LG(LS(N3))  &trans
-&trans  &trans  &trans  &trans  &trans  &trans      &trans  &trans  &trans       &trans         &trans          &trans
-&trans  &trans  &trans  &trans  &trans  &trans      &trans  &trans                                              &trans
-            >;
-        };
-
-        TOUCH_MOUSE {
-            bindings = <
-&trans  &trans  &trans  &trans  &trans                      &trans  &rt_macro 1  &kp LG(TAB)  &rt_macro 2  &mt LG(LS(T)) LG(W)
-&trans  &trans  &trans  &trans  &trans  &trans      &trans  &trans  &trans       &trans       &trans       &trans
-&trans  &trans  &trans  &trans  &trans  &trans      &trans  &trans  &trans       &trans       &trans       &trans
-&trans  &trans  &trans  &trans  &trans  &trans      &trans  &trans                                         &trans
-            >;
-        };
-
         // 変更点4: Windows直結時(JIS誤認識状態)でも記号が正しく出るよう
         // キーコードを補正したNUMレイヤー。DEFAULT(Win)レイヤーのSPACEのみ
-        // ここを参照する(APPLE/APPLE_TOUCHは通常のNUMのまま)。
+        // ここを参照する(APPLEは通常のNUMのまま)。
         // 数字・ピリオド・カンマ等、JISとUSで差が出ない部分はNUMと共通。
         // _ \ | の3つはUSキーコードの組み合わせでは物理的に作れないため、
         // Alt+テンキーコードによるUnicode直接入力マクロで代替している。
