@@ -79,6 +79,17 @@
             key-positions = <22 23 24>;
             layers = <L_APPLE L_APPLEMOUSE>;
         };
+
+        // 右手だけでスクロール: マウス操作中(SQTホールド=MOUSE層)に L と ; を
+        // 同時ホールドすると L_SCROLL が乗り、トラックボールがスクロールに化ける
+        // (scroll-layers=<L_SCROLL>)。離すと即MOUSE層に戻る。L/; の単押しは
+        // MB2/透過のまま(遅延ゼロ)。マウス層限定なので通常入力には影響しない。
+        scroll_hold {
+            bindings = <&mo L_SCROLL>;
+            key-positions = <20 28>;
+            layers = <L_MOUSE L_APPLEMOUSE>;
+            timeout-ms = <200>;
+        };
     };
 
     macros {
